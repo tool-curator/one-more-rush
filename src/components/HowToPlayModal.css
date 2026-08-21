@@ -1,0 +1,308 @@
+.howtoplay-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(4, 4, 7, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  padding: 1rem !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+.howtoplay-modal {
+  width: min(560px, calc(100vw - 32px)) !important;
+  max-height: calc(100vh - 40px) !important;
+  overflow-y: auto !important;
+  margin: auto !important;
+  padding: 1.75rem 1.5rem 1.5rem 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  position: relative !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 53, 98, 0.15) !important;
+  z-index: 10000 !important;
+  background: rgba(14, 14, 22, 0.95) !important;
+}
+
+.howtoplay-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10001;
+}
+
+.howtoplay-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+.howtoplay-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  align-self: flex-start;
+}
+
+.howtoplay-breadcrumbs a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.howtoplay-breadcrumbs a:hover {
+  color: var(--accent-secondary);
+}
+
+.crumb-sep {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.crumb-current {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.howtoplay-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.howtoplay-title {
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+}
+
+.howtoplay-subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* Semantic Overview Box */
+.howtoplay-overview-box {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.overview-text {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin: 0 0 0.6rem 0;
+}
+
+.overview-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.overview-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.overview-meta-item strong {
+  color: var(--text-primary);
+}
+
+.meta-icon {
+  flex-shrink: 0;
+}
+
+/* Pro Tip Card */
+.howtoplay-protip-card {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(255, 53, 98, 0.06);
+  border: 1px solid rgba(255, 53, 98, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.protip-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.protip-text {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #ffb4c4;
+  margin: 0;
+}
+
+.protip-text strong {
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+/* Rules Grid */
+.howtoplay-rules {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.rule-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color var(--transition-fast);
+}
+
+.rule-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.rule-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rule-label {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.rule-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding-left: 28px;
+}
+
+.icon-cyan { color: #00f2fe; }
+.icon-yellow { color: #ffd166; }
+.icon-pink { color: #ff3562; }
+.icon-violet { color: #a06cd5; }
+.icon-gold { color: #ffb703; }
+
+/* Gameplay Loop Diagram */
+.howtoplay-flow {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.flow-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.flow-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.flow-chip {
+  background: rgba(255, 53, 98, 0.14);
+  border: 1px solid rgba(255, 53, 98, 0.35);
+  color: var(--text-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+}
+
+/* Footer Button */
+.howtoplay-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.start-now-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 0.95rem 1.75rem;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 600px) {
+  .howtoplay-modal {
+    padding: 1.5rem 1rem 1.25rem 1rem !important;
+  }
+  .howtoplay-title {
+    font-size: 1.75rem;
+  }
+  .rule-desc {
+    padding-left: 0;
+    font-size: 0.78rem;
+  }
+  .flow-steps {
+    gap: 4px;
+  }
+  .flow-chip {
+    font-size: 0.65rem;
+    padding: 3px 7px;
+  }
+}

@@ -1,0 +1,398 @@
+/* Leaderboard Section */
+.leaderboard-section {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem 1.5rem;
+  position: relative;
+  z-index: 5;
+}
+
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent-gold);
+  background: rgba(255, 183, 3, 0.08);
+  border: 1px solid rgba(255, 183, 3, 0.25);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.75rem;
+}
+
+.leaderboard-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Tabs */
+.leaderboard-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  border-radius: var(--radius-full);
+}
+
+.leaderboard-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 16px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.leaderboard-tab:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.leaderboard-tab.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.tab-soon-badge {
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 209, 102, 0.2);
+  color: #ffd166;
+  border: 1px solid rgba(255, 209, 102, 0.35);
+}
+
+.section-tab-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: rgba(255, 209, 102, 0.08);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: var(--radius-full);
+  color: #ffd166;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Dual Column Layout */
+.leaderboard-content-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Personal Records Card */
+.personal-records-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(14, 16, 26, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1rem;
+}
+
+.records-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.records-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.sync-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.record-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(2px);
+}
+
+.record-game-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.record-game-icon {
+  font-size: 1.2rem;
+}
+
+.record-game-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.record-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rank-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.rank-master {
+  background: rgba(255, 53, 98, 0.2);
+  color: #ff3562;
+  border: 1px solid rgba(255, 53, 98, 0.4);
+}
+
+.rank-expert {
+  background: rgba(255, 183, 3, 0.18);
+  color: #ffb703;
+  border: 1px solid rgba(255, 183, 3, 0.35);
+}
+
+.rank-pro {
+  background: rgba(0, 242, 254, 0.15);
+  color: #00f2fe;
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.rank-novice {
+  background: rgba(138, 43, 226, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.rank-none {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+}
+
+.record-score-box {
+  min-width: 80px;
+  text-align: right;
+}
+
+.record-score-val {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.record-play-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.record-play-link:hover {
+  background: #ffffff;
+  color: #07070a;
+  border-color: #ffffff;
+}
+
+/* Global Card */
+.global-leaderboard-card {
+  padding: 2rem 1.75rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(145deg, rgba(20, 18, 32, 0.95), rgba(12, 14, 22, 0.95));
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.global-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent-secondary);
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.global-card-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.65rem;
+}
+
+.global-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+}
+
+.global-perks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.75rem;
+}
+
+.perk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.icon-gold {
+  color: var(--accent-gold);
+}
+
+.icon-pink {
+  color: var(--accent-primary);
+}
+
+.global-cta-box {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-view-leaderboards {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .leaderboard-content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .leaderboard-section {
+    padding: 1.5rem 1rem 4rem 1rem;
+  }
+
+  .personal-records-card,
+  .global-leaderboard-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .record-row {
+    padding: 8px 10px;
+  }
+
+  .record-game-info {
+    min-width: auto;
+  }
+
+  .record-game-name {
+    font-size: 0.85rem;
+  }
+
+  .rank-badge {
+    display: none;
+  }
+}

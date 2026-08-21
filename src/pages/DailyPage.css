@@ -1,0 +1,313 @@
+/* Dedicated Daily Challenge Page */
+.daily-page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  position: relative;
+  z-index: 5;
+}
+
+.daily-page-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.daily-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent-gold);
+  background: rgba(255, 183, 3, 0.1);
+  border: 1px solid rgba(255, 183, 3, 0.3);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.85rem;
+}
+
+.badge-flame {
+  color: var(--accent-gold);
+}
+
+.daily-page-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.daily-page-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.daily-page-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Streak Zero State (Day 0) */
+.streak-zero-pill {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.streak-flame-dim {
+  color: #94a3b8;
+  opacity: 0.7;
+}
+
+/* Streak Milestone Tracker Section */
+.daily-milestone-tracker {
+  width: 100%;
+  background: rgba(14, 16, 26, 0.85);
+  border: 1px solid rgba(255, 209, 102, 0.22);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.milestone-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.milestone-title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.milestone-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffd166;
+}
+
+.flame-gold {
+  color: #ffd166;
+}
+
+.milestone-heading {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.milestone-current-pill {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.milestone-current-pill strong {
+  color: #00f2fe;
+}
+
+.milestone-progress-bar-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.milestone-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff7700, #ffd166, #00f2fe);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.milestone-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.milestone-step-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.milestone-step-node.step-in-progress {
+  border-color: rgba(0, 242, 254, 0.3);
+  background: rgba(0, 242, 254, 0.04);
+  color: var(--text-primary);
+}
+
+.milestone-step-node.step-achieved {
+  border-color: rgba(0, 230, 118, 0.35);
+  background: rgba(0, 230, 118, 0.06);
+  color: #ffffff;
+}
+
+.step-marker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-achieved {
+  color: #00e676;
+}
+
+.step-day {
+  font-weight: 800;
+}
+
+.step-reward {
+  font-weight: 800;
+  color: #ffd166;
+}
+
+.milestone-step-node.step-achieved .step-reward {
+  color: #00e676;
+}
+
+/* Post-Completion Return Tomorrow Banner */
+.daily-return-tomorrow-banner {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0, 230, 118, 0.08), rgba(0, 242, 254, 0.06));
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.return-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.return-banner-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.return-banner-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.return-banner-desc strong {
+  color: #ffd166;
+}
+
+/* Dual Grid */
+.daily-page-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  width: 100%;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: rgba(14, 16, 26, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.how-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.how-step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+}
+
+.step-num {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent-secondary);
+  opacity: 0.8;
+}
+
+.step-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.step-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .daily-page-dual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .how-it-works-section {
+    padding: 1.5rem 1.25rem;
+  }
+}

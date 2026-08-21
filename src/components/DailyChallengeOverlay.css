@@ -1,0 +1,173 @@
+/* Compact In-Game Daily Challenge HUD Overlay */
+.daily-hud-overlay {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 100;
+  max-width: 320px;
+  background: rgba(12, 14, 24, 0.92);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.hud-quick-win {
+  border: 1px solid rgba(0, 230, 118, 0.4);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65), 0 0 15px rgba(0, 230, 118, 0.12);
+}
+
+.hud-extreme {
+  border: 1px solid rgba(255, 53, 98, 0.4);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65), 0 0 15px rgba(255, 53, 98, 0.15);
+}
+
+.daily-hud-overlay.hud-collapsed {
+  max-width: 260px;
+}
+
+.daily-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.hud-quick-win .daily-hud-header {
+  background: rgba(0, 230, 118, 0.1);
+  border-bottom: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+.hud-extreme .daily-hud-header {
+  background: rgba(255, 53, 98, 0.1);
+  border-bottom: 1px solid rgba(255, 53, 98, 0.2);
+}
+
+.hud-collapsed .daily-hud-header {
+  border-bottom: none !important;
+}
+
+.hud-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud-icon-quick {
+  color: #00e676;
+  flex-shrink: 0;
+}
+
+.hud-icon-extreme {
+  color: #ff3562;
+  flex-shrink: 0;
+}
+
+.hud-quick-win .hud-tier-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #00e676;
+  flex-shrink: 0;
+}
+
+.hud-extreme .hud-tier-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ff3562;
+  flex-shrink: 0;
+}
+
+.hud-challenge-title {
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.daily-hud-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hud-objectives-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hud-objective-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-primary);
+}
+
+.hud-target-quick {
+  color: #00e676;
+  flex-shrink: 0;
+}
+
+.hud-target-extreme {
+  color: var(--accent-secondary);
+  flex-shrink: 0;
+}
+
+.hud-reward-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hud-quick-win .hud-reward-row {
+  color: #00e676;
+}
+
+.hud-extreme .hud-reward-row {
+  color: #ff3562;
+}
+
+.hud-gem-quick {
+  color: #00e676;
+}
+
+.hud-gem-extreme {
+  color: var(--accent-secondary);
+}
+
+@media (max-width: 600px) {
+  .daily-hud-overlay {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    max-width: none;
+  }
+}

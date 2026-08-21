@@ -1,0 +1,393 @@
+/* Premium Dark Arcade Hero Section */
+.hero-section {
+  width: 100%;
+  min-height: 480px;
+  padding: 4.5rem 1.5rem 4.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layer 1 & 2: Futuristic Perspective Grid & Light Streaks */
+.hero-grid-perspective {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  mask-image: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 72%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 72%);
+}
+
+.hero-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-size: 56px 56px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  animation: gridPan 45s linear infinite;
+}
+
+@keyframes gridPan {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(56px, 56px, 0);
+  }
+}
+
+/* Traveling Light Streaks Along Grid Lines */
+.grid-streak {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.streak-h1 {
+  top: 32%;
+  left: 10%;
+  width: 180px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.7), transparent);
+  filter: blur(0.5px) drop-shadow(0 0 6px var(--accent-secondary-glow));
+  animation: streakHorizontal 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+.streak-h2 {
+  top: 68%;
+  left: 20%;
+  width: 220px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 53, 98, 0.65), transparent);
+  filter: blur(0.5px) drop-shadow(0 0 6px var(--accent-primary-glow));
+  animation: streakHorizontal 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 6s;
+}
+
+.streak-v1 {
+  top: 15%;
+  left: 35%;
+  width: 1.5px;
+  height: 160px;
+  background: linear-gradient(180deg, transparent, rgba(0, 242, 254, 0.65), transparent);
+  filter: blur(0.5px) drop-shadow(0 0 6px var(--accent-secondary-glow));
+  animation: streakVertical 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 3.5s;
+}
+
+.streak-v2 {
+  top: 25%;
+  left: 65%;
+  width: 1.5px;
+  height: 200px;
+  background: linear-gradient(180deg, transparent, rgba(255, 183, 3, 0.6), transparent);
+  filter: blur(0.5px) drop-shadow(0 0 6px var(--accent-gold-glow));
+  animation: streakVertical 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 8s;
+}
+
+@keyframes streakHorizontal {
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  75% {
+    transform: translateX(450px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(450px);
+    opacity: 0;
+  }
+}
+
+@keyframes streakVertical {
+  0% {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  75% {
+    transform: translateY(380px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(380px);
+    opacity: 0;
+  }
+}
+
+/* Ambient Energy Grid Pulses */
+.grid-pulse {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pulse-1 {
+  top: 28%;
+  left: 28%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);
+  animation: energyPulse 9s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.pulse-2 {
+  top: 55%;
+  right: 25%;
+  background: radial-gradient(circle, rgba(255, 53, 98, 0.14) 0%, transparent 70%);
+  animation: energyPulse 11s ease-in-out infinite;
+  animation-delay: 5.5s;
+}
+
+@keyframes energyPulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40%, 60% {
+    transform: scale(1.3);
+    opacity: 0.75;
+  }
+  80% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Layer 3: Layered Breathing Hero Radial Glows */
+.hero-radial-glow-primary {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680px;
+  height: 420px;
+  background: radial-gradient(ellipse at center, rgba(255, 53, 98, 0.11) 0%, rgba(138, 43, 226, 0.04) 55%, transparent 75%);
+  filter: blur(85px);
+  pointer-events: none;
+  z-index: 1;
+  animation: breatheGlowPrimary 10s ease-in-out infinite alternate;
+}
+
+.hero-radial-glow-secondary {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 320px;
+  background: radial-gradient(ellipse at center, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+  filter: blur(75px);
+  pointer-events: none;
+  z-index: 1;
+  animation: breatheGlowSecondary 8s ease-in-out infinite alternate;
+}
+
+@keyframes breatheGlowPrimary {
+  0% {
+    transform: translateX(-50%) scale(0.95);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes breatheGlowSecondary {
+  0% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%) scale(0.9);
+    opacity: 1;
+  }
+}
+
+/* Hero Content with Staggered Entrance */
+.hero-content {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-animate-1 {
+  animation: heroFadeSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0ms forwards;
+  opacity: 0;
+}
+.hero-animate-2 {
+  animation: heroFadeSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+  opacity: 0;
+}
+.hero-animate-3 {
+  animation: heroFadeSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 220ms forwards;
+  opacity: 0;
+}
+.hero-animate-4 {
+  animation: heroFadeSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 340ms forwards;
+  opacity: 0;
+}
+
+@keyframes heroFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Brand Name Accent */
+.hero-brand-name {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Main Headline */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.2rem, 9.5vw, 6.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 4px 35px rgba(0, 0, 0, 0.7);
+}
+
+.hero-title-accent {
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent-primary) 65%, #ffb703 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(255, 53, 98, 0.35));
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  color: var(--text-secondary);
+  max-width: 580px;
+  line-height: 1.55;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* Dual CTAs */
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-play-btn {
+  padding: 1.15rem 3.4rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  box-shadow: 0 0 35px rgba(255, 53, 98, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.hero-daily-btn {
+  padding: 1.15rem 2.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 8px;
+}
+
+.hero-daily-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 183, 3, 0.4);
+  box-shadow: 0 0 20px rgba(255, 183, 3, 0.2);
+}
+
+.hero-flame-icon {
+  color: var(--accent-gold);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid-pattern,
+  .grid-streak,
+  .grid-pulse,
+  .hero-radial-glow-primary,
+  .hero-radial-glow-secondary,
+  .hero-animate-1,
+  .hero-animate-2,
+  .hero-animate-3,
+  .hero-animate-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 4.5rem 1.25rem 3.5rem 1.25rem;
+    min-height: 440px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 11vw, 4.2rem);
+  }
+
+  .hero-subtitle {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .hero-cta-group {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-play-btn,
+  .hero-daily-btn {
+    width: 100%;
+    max-width: 340px;
+    padding: 0.95rem 1.5rem;
+    font-size: 1.05rem;
+  }
+}

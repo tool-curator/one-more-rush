@@ -1,0 +1,110 @@
+.app-shell {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+.app-shell.lobby-mode {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-shell.game-mode {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Background Atmosphere & Ambient Spotlight */
+.bg-cursor-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 550px;
+  height: 550px;
+  margin-top: -275px;
+  margin-left: -275px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.07) 0%, rgba(255, 53, 98, 0.03) 45%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(var(--mouse-bg-x, -500px), var(--mouse-bg-y, -500px), 0);
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .bg-cursor-spotlight {
+    display: none !important;
+  }
+}
+
+/* Lobby Main Content with Smooth Section Transitions */
+.lobby-content {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+}
+
+/* Daily Visit +10 RP Claim Toast */
+.daily-visit-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(20, 24, 40, 0.95), rgba(12, 14, 24, 0.98));
+  border: 1px solid rgba(255, 209, 102, 0.45);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(255, 209, 102, 0.25);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+
+.visit-toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 209, 102, 0.15);
+  border: 1px solid rgba(255, 209, 102, 0.35);
+  flex-shrink: 0;
+}
+
+.visit-toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.visit-toast-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ffd166;
+}
+
+.visit-toast-sub {
+  font-size: 0.84rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .daily-visit-toast {
+    bottom: 1.5rem;
+    right: 1rem;
+    left: 1rem;
+    justify-content: center;
+  }
+}

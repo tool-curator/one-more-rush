@@ -1,0 +1,6 @@
+# ONE MORE RUSH — robots.txt
+# Public search engine crawling configuration
+User-agent: *
+Allow: /
+
+Sitemap: https://onemorerush.com/sitemap.xml

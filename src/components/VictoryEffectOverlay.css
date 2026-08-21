@@ -1,0 +1,553 @@
+/* ==========================================================================
+   ONE MORE RUSH — VICTORY EFFECTS STYLES
+   100% Cosmetic presentation overlays. Zero pointer interception.
+   ========================================================================== */
+
+.victory-effect-root {
+  pointer-events: none !important;
+  user-select: none !important;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.victory-fullscreen-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+
+.victory-inline-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   1. CLASSIC: Subtle cyan/white flash + sparkle burst
+   -------------------------------------------------------------------------- */
+.effect-classic-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.classic-flash-radial {
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.35) 0%, rgba(255, 255, 255, 0.2) 35%, transparent 70%);
+  animation: classicFlashAnim 0.65s ease-out forwards;
+}
+
+@keyframes classicFlashAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+.classic-sparkles-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.classic-sparkle-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #00f2fe, 0 0 16px #ffffff;
+  transform: translate(-50%, -50%);
+  animation: classicSparkleAnim 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes classicSparkleAnim {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-75px) scale(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. CONFETTI: Soft ambient glow backdrop
+   -------------------------------------------------------------------------- */
+.effect-confetti-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.confetti-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 242, 254, 0.15), rgba(255, 53, 98, 0.12), transparent 70%);
+  animation: confettiGlowAnim 1s ease-out forwards;
+}
+
+@keyframes confettiGlowAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. NEON BURST: Expanding radial shockwaves + flare
+   -------------------------------------------------------------------------- */
+.effect-neon-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neon-center-flare {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #00f2fe 50%, transparent 80%);
+  filter: blur(4px);
+  animation: neonFlareAnim 0.6s ease-out forwards;
+}
+
+@keyframes neonFlareAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+.neon-ring {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.neon-ring.ring-1 {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #00f2fe;
+  box-shadow: 0 0 20px #00f2fe, inset 0 0 15px #00f2fe;
+  animation: neonRingAnim 0.7s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+}
+
+.neon-ring.ring-2 {
+  width: 90px;
+  height: 90px;
+  border: 2.5px solid #ff3562;
+  box-shadow: 0 0 20px #ff3562, inset 0 0 15px #ff3562;
+  animation: neonRingAnim 0.7s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.neon-ring.ring-3 {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #a06cd5;
+  box-shadow: 0 0 25px #a06cd5, inset 0 0 15px #a06cd5;
+  animation: neonRingAnim 0.7s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes neonRingAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. STARFALL: Premium starlight cascade
+   -------------------------------------------------------------------------- */
+.effect-starfall-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.starfall-top-glow {
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  width: 260px;
+  height: 90px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at top center, rgba(255, 209, 102, 0.45) 0%, rgba(0, 242, 254, 0.2) 50%, transparent 80%);
+  filter: blur(12px);
+  animation: starfallTopGlowAnim 1.1s ease-out forwards;
+}
+
+@keyframes starfallTopGlowAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+  }
+  25% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.3);
+  }
+}
+
+.starfall-cascade-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+}
+
+.starfall-streak {
+  position: absolute;
+  top: 0;
+  left: var(--start-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: starfallDescentAnim var(--duration) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes starfallDescentAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.7);
+  }
+  20% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(220px) scale(0.4);
+  }
+}
+
+.starfall-head {
+  width: var(--star-size);
+  height: var(--star-size);
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px var(--star-color), 0 0 18px var(--star-color), 0 0 28px #ffffff;
+}
+
+.starfall-tail {
+  width: 2px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--star-color) 0%, rgba(255, 255, 255, 0.6) 40%, transparent 100%);
+  border-radius: 2px;
+  margin-top: -2px;
+  filter: blur(0.5px);
+}
+
+.starfall-sparkle {
+  position: absolute;
+  top: 0;
+  width: calc(var(--star-size) * 1.8);
+  height: calc(var(--star-size) * 1.8);
+  background: radial-gradient(circle, #ffffff 10%, transparent 70%);
+  animation: starfallTwinkleAnim 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes starfallTwinkleAnim {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0.6; }
+  100% { transform: scale(1.3) rotate(45deg); opacity: 1; }
+}
+
+.starfall-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 209, 102, 0.12), rgba(0, 242, 254, 0.08), transparent 70%);
+  animation: starfallAmbientAnim 1.2s ease-out forwards;
+}
+
+@keyframes starfallAmbientAnim {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   5. LIGHTNING: High-voltage electric arc discharge
+   -------------------------------------------------------------------------- */
+.effect-lightning-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightning-screen-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(179, 136, 255, 0.35), rgba(0, 242, 254, 0.25), transparent 75%);
+  animation: lightningFlashAnim 0.6s ease-out forwards;
+}
+
+@keyframes lightningFlashAnim {
+  0% { opacity: 0; }
+  15% { opacity: 0.9; }
+  25% { opacity: 0.3; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.lightning-arcs-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px #00f2fe) drop-shadow(0 0 18px #b388ff);
+}
+
+.lightning-bolt {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: miter;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: lightningBoltAnim 0.6s ease-out forwards;
+}
+
+.lightning-bolt.bolt-2 {
+  stroke: #00f2fe;
+  animation-delay: 0.05s;
+}
+
+.lightning-bolt.bolt-3 {
+  stroke: #b388ff;
+  animation-delay: 0.08s;
+}
+
+.lightning-bolt.bolt-4 {
+  stroke: #ffffff;
+  animation-delay: 0.12s;
+}
+
+@keyframes lightningBoltAnim {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0;
+  }
+  20% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. GLITCH: Cyber distortion & RGB chromatic aberration
+   -------------------------------------------------------------------------- */
+.effect-glitch-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.glitch-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.08) 0px,
+    rgba(255, 255, 255, 0.08) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: glitchScanAnim 0.65s linear forwards;
+}
+
+@keyframes glitchScanAnim {
+  0% { opacity: 0; transform: translateY(-10%); }
+  25% { opacity: 0.8; transform: translateY(0); }
+  50% { opacity: 0.6; transform: translateY(10%); }
+  100% { opacity: 0; transform: translateY(20%); }
+}
+
+.glitch-slice {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 242, 254, 0.18);
+  backdrop-filter: invert(0.15) hue-rotate(90deg);
+}
+
+.glitch-slice.slice-top {
+  top: 15%;
+  height: 25%;
+  animation: glitchSliceTop 0.6s steps(2, end) forwards;
+}
+
+.glitch-slice.slice-mid {
+  top: 45%;
+  height: 20%;
+  animation: glitchSliceMid 0.6s steps(3, end) forwards;
+}
+
+.glitch-slice.slice-bot {
+  top: 75%;
+  height: 18%;
+  animation: glitchSliceBot 0.6s steps(2, end) forwards;
+}
+
+@keyframes glitchSliceTop {
+  0% { transform: translateX(0); opacity: 0; }
+  20% { transform: translateX(-12px); opacity: 0.9; }
+  45% { transform: translateX(8px); opacity: 0.8; }
+  70% { transform: translateX(-4px); opacity: 0.5; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+@keyframes glitchSliceMid {
+  0% { transform: translateX(0); opacity: 0; }
+  15% { transform: translateX(16px); opacity: 0.9; }
+  40% { transform: translateX(-10px); opacity: 0.7; }
+  65% { transform: translateX(6px); opacity: 0.4; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+@keyframes glitchSliceBot {
+  0% { transform: translateX(0); opacity: 0; }
+  25% { transform: translateX(-14px); opacity: 0.9; }
+  55% { transform: translateX(10px); opacity: 0.6; }
+  80% { transform: translateX(-3px); opacity: 0.3; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+.glitch-chromatic-cyan {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(0, 242, 254, 0.6);
+  box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.4);
+  animation: glitchChromaticCyan 0.6s ease-out forwards;
+}
+
+.glitch-chromatic-pink {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255, 53, 98, 0.6);
+  box-shadow: inset 0 0 20px rgba(255, 53, 98, 0.4);
+  animation: glitchChromaticPink 0.6s ease-out forwards;
+}
+
+@keyframes glitchChromaticCyan {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { transform: translate(-6px, 2px); opacity: 0.8; }
+  50% { transform: translate(4px, -2px); opacity: 0.6; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+
+@keyframes glitchChromaticPink {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { transform: translate(6px, -2px); opacity: 0.8; }
+  50% { transform: translate(-4px, 2px); opacity: 0.6; }
+  100% { transform: translate(0, 0); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   7. PREFERS-REDUCED-MOTION: Safe, gentle static glow fallback
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .victory-effect-root * {
+    animation-duration: 0.4s !important;
+    animation-iteration-count: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .classic-flash-radial,
+  .confetti-ambient-glow,
+  .neon-center-flare,
+  .starfall-top-glow,
+  .starfall-ambient-glow,
+  .lightning-screen-flash {
+    animation: reducedMotionFade 0.45s ease-out forwards !important;
+    transform: none !important;
+  }
+
+  .classic-sparkle-dot,
+  .neon-ring,
+  .starfall-cascade-container,
+  .lightning-arcs-svg,
+  .glitch-slice,
+  .glitch-scanlines {
+    display: none !important;
+  }
+
+  @keyframes reducedMotionFade {
+    0% { opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0; }
+  }
+}

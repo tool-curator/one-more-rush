@@ -1,0 +1,225 @@
+/* Achievement Unlock Toast Container */
+.achievement-toast-container {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+  width: calc(100vw - 48px);
+  pointer-events: none;
+}
+
+/* Individual Toast Card */
+.achievement-toast-card {
+  position: relative;
+  pointer-events: auto;
+  background: rgba(14, 18, 28, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 209, 102, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform-origin: top right;
+}
+
+.achievement-toast-card.rarity-epic {
+  border-color: rgba(160, 108, 213, 0.5);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(160, 108, 213, 0.25);
+}
+
+.achievement-toast-card.rarity-rare {
+  border-color: rgba(255, 183, 3, 0.5);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(255, 183, 3, 0.25);
+}
+
+.achievement-toast-glow-ring {
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Header Row */
+.achievement-toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.achievement-trophy-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.3);
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffd166;
+  text-transform: uppercase;
+}
+
+.achievement-trophy-pill .trophy-icon {
+  color: #ffd166;
+}
+
+.achievement-toast-close {
+  background: none;
+  border: none;
+  color: var(--color-text-muted, #94a3b8);
+  padding: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.achievement-toast-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Body */
+.achievement-toast-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.achievement-icon-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0, 242, 254, 0.1));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.achievement-emoji-icon {
+  font-size: 1.6rem;
+  animation: badgeIconBounce 1.2s ease infinite alternate;
+}
+
+.achievement-sparkle-flair {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  color: #ffd166;
+  animation: sparkleRotate 2.5s linear infinite;
+}
+
+.achievement-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.achievement-badge-name {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.achievement-unlock-cond {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #00f2fe;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+/* Animations */
+@keyframes achievementPopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.92);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-achievement-pop {
+  animation: achievementPopIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes badgeIconBounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+@keyframes sparkleRotate {
+  0% {
+    transform: rotate(0deg) scale(0.85);
+    opacity: 0.7;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) scale(0.85);
+    opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .achievement-toast-container {
+    top: 72px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+  }
+
+  .achievement-toast-card {
+    padding: 12px 14px;
+  }
+
+  .achievement-icon-wrapper {
+    width: 42px;
+    height: 42px;
+  }
+
+  .achievement-emoji-icon {
+    font-size: 1.4rem;
+  }
+}

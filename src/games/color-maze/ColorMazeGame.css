@@ -1,0 +1,369 @@
+/* Color Maze Flagship Styling */
+.colormaze-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 10px 16px;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Minimal Arcade HUD */
+.colormaze-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 620px;
+  padding: 8px 18px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bg-glass-border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.hud-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hud-lbl {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.hud-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.highlight-coverage {
+  color: var(--accent-secondary);
+  text-shadow: 0 0 12px var(--accent-secondary-glow);
+}
+
+.hud-sub-label {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+/* In-HUD Active Retry Button */
+.colormaze-hud-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.colormaze-hud-retry-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+  transform: scale(1.04);
+}
+
+.colormaze-hud-retry-btn:active {
+  transform: scale(0.96);
+}
+
+/* Main Canvas Playfield */
+.colormaze-playfield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  touch-action: none;
+}
+
+.colormaze-canvas {
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  touch-action: none;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Level Complete Modal Overlay */
+.colormaze-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 4, 7, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+}
+
+.colormaze-modal-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 242, 254, 0.2);
+  background: rgba(14, 16, 26, 0.96);
+  border-radius: var(--radius-lg);
+}
+
+.colormaze-badge-success {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent-secondary);
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
+}
+
+.colormaze-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+/* Star Rating Display */
+.colormaze-stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.colormaze-star-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.colormaze-star-item.earned {
+  color: #ffb703;
+  filter: drop-shadow(0 0 10px rgba(255, 183, 3, 0.65));
+  animation: starPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.colormaze-star-item.empty {
+  color: rgba(255, 255, 255, 0.16);
+}
+
+@keyframes starPop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Score Banner */
+.colormaze-score-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.08), rgba(255, 53, 98, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.colormaze-score-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent-secondary);
+}
+
+.colormaze-score-val {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
+  line-height: 1.1;
+  margin: 2px 0;
+}
+
+.colormaze-best-score-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.new-best-badge {
+  background: linear-gradient(135deg, #ff3562, #ffb703);
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 900;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  animation: pulse 1.2s infinite alternate;
+}
+
+.colormaze-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+.colormaze-stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.stat-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.colormaze-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.colormaze-btn {
+  width: 100%;
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+  justify-content: center;
+}
+
+.colormaze-btn-sub {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Mobile Responsive Optimizations */
+@media (max-width: 600px) {
+  .colormaze-game-container {
+    padding: 6px 8px;
+  }
+
+  .colormaze-hud {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  .hud-lbl {
+    font-size: 0.52rem;
+  }
+
+  .hud-val {
+    font-size: 0.9rem;
+  }
+
+  .colormaze-hud-retry-btn {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+  }
+
+  .colormaze-modal-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .colormaze-modal-title {
+    font-size: 1.4rem;
+  }
+
+  .colormaze-score-val {
+    font-size: 1.8rem;
+  }
+
+  .stat-val {
+    font-size: 1.1rem;
+  }
+}
+

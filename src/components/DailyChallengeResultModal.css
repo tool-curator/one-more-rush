@@ -1,0 +1,506 @@
+/* Daily Challenge Result Modal */
+.daily-result-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 5, 10, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.daily-result-card {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(14, 16, 26, 0.96);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+}
+
+.result-quick-glow {
+  border: 1px solid rgba(0, 230, 118, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 230, 118, 0.2);
+}
+
+.result-extreme-glow {
+  border: 1px solid rgba(255, 53, 98, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 53, 98, 0.2);
+}
+
+.result-fail-glow {
+  border: 1px solid rgba(255, 53, 98, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 53, 98, 0.12);
+}
+
+.result-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.75rem;
+}
+
+.badge-quick-success {
+  color: #00e676;
+  background: rgba(0, 230, 118, 0.12);
+  border: 1px solid rgba(0, 230, 118, 0.35);
+  box-shadow: 0 0 16px rgba(0, 230, 118, 0.25);
+}
+
+.badge-extreme-success {
+  color: #ff3562;
+  background: rgba(255, 53, 98, 0.14);
+  border: 1px solid rgba(255, 53, 98, 0.4);
+  box-shadow: 0 0 18px rgba(255, 53, 98, 0.25);
+}
+
+.badge-fail {
+  color: #ff3562;
+  background: rgba(255, 53, 98, 0.12);
+  border: 1px solid rgba(255, 53, 98, 0.35);
+}
+
+.sparkle-spin {
+  animation: spinSlow 6s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.result-challenge-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.result-game-sub {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+/* Objectives Breakdown Box */
+.result-objectives-box {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.breakdown-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.breakdown-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-success {
+  color: #00e676;
+  flex-shrink: 0;
+}
+
+.icon-failure {
+  color: #ff3562;
+  flex-shrink: 0;
+}
+
+.obj-met {
+  color: var(--text-primary);
+}
+
+.obj-unmet {
+  color: var(--text-muted);
+}
+
+.breakdown-val {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Rewards & Streaks */
+.result-rewards-section {
+  width: 100%;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.reward-receipt-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.receipt-quick {
+  background: linear-gradient(135deg, rgba(0, 230, 118, 0.12), rgba(0, 242, 254, 0.08));
+  border: 1px solid rgba(0, 230, 118, 0.35);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
+}
+
+.receipt-extreme {
+  background: linear-gradient(135deg, rgba(255, 53, 98, 0.15), rgba(255, 183, 3, 0.1));
+  border: 1px solid rgba(255, 53, 98, 0.35);
+  box-shadow: 0 0 20px rgba(255, 53, 98, 0.2);
+}
+
+.receipt-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.receipt-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.receipt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.receipt-bonus-row {
+  color: #ffd166;
+}
+
+.bonus-val {
+  font-weight: 800;
+  color: #ffd166;
+}
+
+.receipt-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 3px 0;
+}
+
+.receipt-total-row {
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.receipt-total-val {
+  color: #00e676;
+}
+
+.reward-claimed-box {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+.result-retention-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(255, 209, 102, 0.06);
+  border: 1px solid rgba(255, 209, 102, 0.25);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  margin-top: 4px;
+}
+
+.retention-target-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #ffd166;
+}
+
+.retention-target-header strong {
+  color: #ffffff;
+}
+
+.retention-milestone-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.retention-milestone-sub strong {
+  color: #00f2fe;
+}
+
+.retention-callout-cue {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 4px;
+  margin-top: 2px;
+}
+
+.result-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.stat-pill-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.stat-pill-item strong {
+  color: #ffffff;
+}
+
+.icon-flame {
+  color: var(--accent-gold);
+}
+
+.fail-encouragement-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.daily-result-card {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(14, 16, 26, 0.96);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+}
+
+.fail-encouragement-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  max-width: 380px;
+}
+
+/* Action Buttons */
+.daily-result-card .result-actions-row,
+.result-actions-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.daily-result-card button.result-btn,
+.daily-result-card .result-btn,
+.result-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  min-height: 44px;
+  max-height: 48px;
+  box-sizing: border-box;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.daily-result-card .result-btn span,
+.result-btn span {
+  white-space: nowrap;
+}
+
+.daily-result-card button.btn-extreme-chain,
+.daily-result-card .btn-extreme-chain,
+.btn-extreme-chain {
+  flex: 1.25 1 0;
+  background: linear-gradient(135deg, #ff3562 0%, #ff5252 100%);
+  border: 1px solid rgba(255, 53, 98, 0.6);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 53, 98, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  padding: 0.75rem 0.75rem;
+  border-radius: var(--radius-md);
+  min-height: 44px;
+  max-height: 48px;
+  box-sizing: border-box;
+}
+
+.daily-result-card button.btn-extreme-chain:hover,
+.daily-result-card .btn-extreme-chain:hover,
+.btn-extreme-chain:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #ff3562 100%);
+  box-shadow: 0 0 30px rgba(255, 53, 98, 0.55);
+  transform: translateY(-2px);
+}
+
+.daily-result-card .btn-extreme-chain .icon-ruby,
+.btn-extreme-chain .icon-ruby {
+  color: #ffffff;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+  flex-shrink: 0;
+}
+
+@media (max-width: 500px) {
+  .daily-result-overlay {
+    padding: 0.5rem;
+  }
+
+  .daily-result-card {
+    padding: 1.25rem 1rem;
+    max-height: 94vh;
+  }
+
+  .result-header {
+    margin-bottom: 0.85rem;
+  }
+
+  .result-challenge-title {
+    font-size: 1.25rem;
+  }
+
+  .result-objectives-box {
+    padding: 0.75rem 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .result-rewards-section {
+    margin-bottom: 1rem;
+    gap: 8px;
+  }
+
+  .reward-earned-box {
+    padding: 8px 16px;
+  }
+
+  .rp-gain-amount {
+    font-size: 1.25rem;
+  }
+
+  .daily-result-card .result-actions-row,
+  .result-actions-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .daily-result-card button.result-btn,
+  .daily-result-card .result-btn,
+  .result-btn,
+  .daily-result-card button.btn-extreme-chain,
+  .daily-result-card .btn-extreme-chain,
+  .btn-extreme-chain {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    box-sizing: border-box;
+    min-height: 44px;
+    max-height: none;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  .btn-extreme-chain {
+    order: -1;
+    font-size: 0.88rem;
+  }
+}
