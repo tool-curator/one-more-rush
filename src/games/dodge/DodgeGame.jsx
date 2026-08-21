@@ -551,6 +551,8 @@ export function DodgeGame({ bestScore, onGameOver, audioFx }) {
                   const finalScore = scoreRef.current;
                   const isNewBest = finalScore > bestScoreRef.current;
 
+                  console.log(`[ScorePipeline:DodgeGame] Lethal damage taken. Triggering onGameOver with finalScore:`, finalScore, `isNewBest:`, isNewBest);
+
                   onGameOverRef.current(finalScore, isNewBest, {
                     survivalTime: waveDirector.survivalTime.toFixed(1) + 's',
                     dangerLevel: waveDirector.dangerLevel,

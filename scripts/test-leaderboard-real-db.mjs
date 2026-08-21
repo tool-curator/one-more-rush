@@ -95,23 +95,23 @@ async function runRealDbIntegrationSuite() {
   // ----------------------------------------------------------------
   console.log('\n--- REAL TEST 10: 50,000 / 50,001 and Plausible Boundaries ---');
 
-  const aimExceed = await submitGameScore({ gameId: 'aim', score: 100001 });
-  assert(aimExceed.submitted === false && aimExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10a: AIM score 100,001 rejected (exceeds 100k cap)');
+  const aimExceed = await submitGameScore({ gameId: 'aim', score: 10000001 });
+  assert(aimExceed.submitted === false && aimExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10a: AIM score 10,000,001 rejected (exceeds 10M cap)');
 
-  const dodgeExceed = await submitGameScore({ gameId: 'dodge', score: 250001 });
-  assert(dodgeExceed.submitted === false && dodgeExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10b: DODGE score 250,001 rejected (exceeds 250k cap)');
+  const dodgeExceed = await submitGameScore({ gameId: 'dodge', score: 50000001 });
+  assert(dodgeExceed.submitted === false && dodgeExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10b: DODGE score 50,000,001 rejected (exceeds 50M cap)');
 
-  const stackExceed = await submitGameScore({ gameId: 'stack', score: 150001 });
-  assert(stackExceed.submitted === false && stackExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10c: STACK score 150,001 rejected (exceeds 150k cap)');
+  const stackExceed = await submitGameScore({ gameId: 'stack', score: 10000001 });
+  assert(stackExceed.submitted === false && stackExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10c: STACK score 10,000,001 rejected (exceeds 10M cap)');
 
-  const numExceed = await submitGameScore({ gameId: 'number-rush', score: 100001 });
-  assert(numExceed.submitted === false && numExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10d: NUMBER RUSH score 100,001 rejected (exceeds 100k cap)');
+  const numExceed = await submitGameScore({ gameId: 'number-rush', score: 5000001 });
+  assert(numExceed.submitted === false && numExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10d: NUMBER RUSH score 5,000,001 rejected (exceeds 5M cap)');
 
-  const memExceed = await submitGameScore({ gameId: 'memory', score: 100001 });
-  assert(memExceed.submitted === false && memExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10e: MEMORY score 100,001 rejected (exceeds 100k cap)');
+  const memExceed = await submitGameScore({ gameId: 'memory', score: 5000001 });
+  assert(memExceed.submitted === false && memExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10e: MEMORY score 5,000,001 rejected (exceeds 5M cap)');
 
-  const mazeExceed = await submitGameScore({ gameId: 'color-maze', score: 100001 });
-  assert(mazeExceed.submitted === false && mazeExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10f: COLOR MAZE score 100,001 rejected (exceeds 100k cap)');
+  const mazeExceed = await submitGameScore({ gameId: 'color-maze', score: 1000001 });
+  assert(mazeExceed.submitted === false && mazeExceed.reason === 'EXCEEDS_MAX_SCORE', 'Test 10f: COLOR MAZE score 1,000,001 rejected (exceeds 1M cap)');
 
   // ----------------------------------------------------------------
   // AUTHENTICATE TEST SESSIONS ON LIVE SUPABASE

@@ -292,20 +292,20 @@ async function runLeaderboardTests() {
   console.log('\n--- SECTION 5: Impossible Score & Max Boundary Checks ---');
 
   const impossibleScores = [
-    { game: 'aim', score: 100000, valid: true, desc: 'AIM 100,000 accepted' },
-    { game: 'aim', score: 100001, valid: false, desc: 'AIM 100,001 rejected' },
-    { game: 'aim', score: 999999, valid: false, desc: 'AIM 999,999 rejected' },
-    { game: 'dodge', score: 250000, valid: true, desc: 'DODGE 250,000 accepted' },
-    { game: 'dodge', score: 250001, valid: false, desc: 'DODGE 250,001 rejected' },
-    { game: 'dodge', score: 535400, valid: false, desc: 'DODGE 535,400 rejected' },
-    { game: 'stack', score: 150000, valid: true, desc: 'STACK 150,000 accepted' },
-    { game: 'stack', score: 150001, valid: false, desc: 'STACK 150,001 rejected' },
-    { game: 'number-rush', score: 100000, valid: true, desc: 'NUMBER RUSH 100,000 accepted' },
-    { game: 'number-rush', score: 100001, valid: false, desc: 'NUMBER RUSH 100,001 rejected' },
-    { game: 'memory', score: 100000, valid: true, desc: 'MEMORY 100,000 accepted' },
-    { game: 'memory', score: 100001, valid: false, desc: 'MEMORY 100,001 rejected' },
-    { game: 'color-maze', score: 100000, valid: true, desc: 'COLOR MAZE 100,000 accepted' },
-    { game: 'color-maze', score: 100001, valid: false, desc: 'COLOR MAZE 100,001 rejected' },
+    { game: 'aim', score: 10000000, valid: true, desc: 'AIM 10,000,000 accepted' },
+    { game: 'aim', score: 10000001, valid: false, desc: 'AIM 10,000,001 rejected' },
+    { game: 'aim', score: 99999999, valid: false, desc: 'AIM 99,999,999 rejected' },
+    { game: 'dodge', score: 1818200, valid: true, desc: 'DODGE 1,818,200 accepted (production run)' },
+    { game: 'dodge', score: 50000000, valid: true, desc: 'DODGE 50,000,000 accepted' },
+    { game: 'dodge', score: 50000001, valid: false, desc: 'DODGE 50,000,001 rejected' },
+    { game: 'stack', score: 10000000, valid: true, desc: 'STACK 10,000,000 accepted' },
+    { game: 'stack', score: 10000001, valid: false, desc: 'STACK 10,000,001 rejected' },
+    { game: 'number-rush', score: 5000000, valid: true, desc: 'NUMBER RUSH 5,000,000 accepted' },
+    { game: 'number-rush', score: 5000001, valid: false, desc: 'NUMBER RUSH 5,000,001 rejected' },
+    { game: 'memory', score: 5000000, valid: true, desc: 'MEMORY 5,000,000 accepted' },
+    { game: 'memory', score: 5000001, valid: false, desc: 'MEMORY 5,000,001 rejected' },
+    { game: 'color-maze', score: 1000000, valid: true, desc: 'COLOR MAZE 1,000,000 accepted' },
+    { game: 'color-maze', score: 1000001, valid: false, desc: 'COLOR MAZE 1,000,001 rejected' },
   ];
 
   for (const item of impossibleScores) {
@@ -393,47 +393,47 @@ async function runLeaderboardTests() {
   // ----------------------------------------------------
   console.log('\n--- SECTION 10: Migration 00021 Legacy Data Cleanup ---');
 
-  // Inject the exact observed 4 legacy corrupt rows into the raw table
+  // Inject legacy corrupt rows into the raw table
   db.scores.push({
     id: 'legacy-aim-1',
     user_id: placeholder1.id,
     game_id: 'aim',
-    score: 999999,
+    score: 99999999,
     created_at: '2026-08-16T00:00:00Z',
   });
   db.scores.push({
     id: 'legacy-aim-2',
     user_id: placeholder2.id,
     game_id: 'aim',
-    score: 999999,
+    score: 99999999,
     created_at: '2026-08-16T00:00:00Z',
   });
   db.scores.push({
     id: 'legacy-aim-3',
     user_id: placeholder3.id,
     game_id: 'aim',
-    score: 999999,
+    score: 99999999,
     created_at: '2026-08-16T00:00:00Z',
   });
   db.scores.push({
     id: 'legacy-dodge-1',
     user_id: adminTester.id,
     game_id: 'dodge',
-    score: 535400,
+    score: 99999999,
     created_at: '2026-08-16T00:00:00Z',
   });
 
   // Verify corrupt rows exist before cleanup
-  assert(db.scores.some((s) => s.score === 999999 && s.game_id === 'aim'), 'Test 10a: Legacy AIM 999,999 scores present before remediation');
-  assert(db.scores.some((s) => s.score === 535400 && s.game_id === 'dodge'), 'Test 10b: Legacy DODGE 535,400 score present before remediation');
+  assert(db.scores.some((s) => s.score === 99999999 && s.game_id === 'aim'), 'Test 10a: Legacy AIM 99,999,999 scores present before remediation');
+  assert(db.scores.some((s) => s.score === 99999999 && s.game_id === 'dodge'), 'Test 10b: Legacy DODGE 99,999,999 score present before remediation');
 
   // Execute Migration 00021 Cleanup
   db.cleanInvalidScores();
 
-  // Verify all 4 corrupt rows are completely deleted
-  assert(!db.scores.some((s) => s.score === 999999), 'Test 10c: All AIM 999,999 records completely absent after remediation');
+  // Verify all corrupt rows are completely deleted
+  assert(!db.scores.some((s) => s.score === 99999999), 'Test 10c: All exceeding 99,999,999 records completely absent after remediation');
   assert(!db.scores.some((s) => s.user_id === placeholder1.id || s.user_id === placeholder2.id || s.user_id === placeholder3.id), 'Test 10d: All 3 player_* placeholder records completely absent after remediation');
-  assert(!db.scores.some((s) => s.score === 535400), 'Test 10e: Legacy DODGE 535,400 record completely absent after remediation');
+  assert(!db.scores.some((s) => s.score === 99999999 && s.game_id === 'dodge'), 'Test 10e: Legacy DODGE 99,999,999 record completely absent after remediation');
 
   // Verify legitimate scores survived cleanup
   assert(db.scores.some((s) => s.user_id === userA.id && s.score === 50001), 'Test 10f: Legitimate scores (50,001) strictly preserved during cleanup');
@@ -448,7 +448,7 @@ async function runLeaderboardTests() {
     id: 'poison-aim',
     user_id: adminTester.id,
     game_id: 'aim',
-    score: 999999,
+    score: 99999999,
     created_at: new Date().toISOString(),
   });
   db.scores.push({
@@ -461,8 +461,8 @@ async function runLeaderboardTests() {
 
   const aimLeaderboard = db.getGameLeaderboardRpc('aim', 50);
 
-  // Leaderboard RPC must NOT return the 999,999 score or the player_* username
-  assert(!aimLeaderboard.some((e) => e.best_score > 100000), 'Test 11a: Leaderboard RPC never returns a score exceeding game maximum');
+  // Leaderboard RPC must NOT return the 99,999,999 score or the player_* username
+  assert(!aimLeaderboard.some((e) => e.best_score > 10000000), 'Test 11a: Leaderboard RPC never returns a score exceeding game maximum');
   assert(!aimLeaderboard.some((e) => e.username.startsWith('player_')), 'Test 11b: Leaderboard RPC never returns player_* placeholder accounts');
 
   // Clean up

@@ -8,12 +8,12 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase.js';
 export const SUPPORTED_GAMES = ['aim', 'dodge', 'stack', 'number-rush', 'memory', 'color-maze'];
 
 export const MAX_SCORE_THRESHOLDS = {
-  aim: 100000,
-  dodge: 250000,
-  stack: 150000,
-  'number-rush': 100000,
-  memory: 100000,
-  'color-maze': 100000,
+  aim: 10000000,          // 10,000,000 (10M)
+  dodge: 50000000,        // 50,000,000 (50M)
+  stack: 10000000,        // 10,000,000 (10M)
+  'number-rush': 5000000, // 5,000,000 (5M)
+  memory: 5000000,        // 5,000,000 (5M)
+  'color-maze': 1000000,  // 1,000,000 (1M)
 };
 
 export const GAME_RANKING_CONFIG = {
@@ -33,24 +33,31 @@ export async function submitGameScore({ gameId, score, metadata = {} }) {
     return { submitted: false, reason: 'SUPABASE_NOT_CONFIGURED' };
   }
 
+  console.log(`[ScorePipeline:submitGameScore] Invoked for ${gameId} with raw score:`, score, 'metadata:', metadata);
+
   // 1. Strict Game Identifier Whitelist
   if (!SUPPORTED_GAMES.includes(gameId)) {
+    console.warn(`[ScorePipeline:submitGameScore] Rejected: INVALID_GAME_ID (${gameId})`);
     return { submitted: false, reason: 'INVALID_GAME_ID' };
   }
 
   // 2. Strict Numeric Type Integrity & Non-Negative Validation
   if (score === null || score === undefined || typeof score === 'boolean' || Array.isArray(score) || typeof score === 'object') {
+    console.warn('[ScorePipeline:submitGameScore] Rejected: INVALID_SCORE type:', typeof score, score);
     return { submitted: false, reason: 'INVALID_SCORE' };
   }
 
   const numericScore = Number(score);
   if (!Number.isFinite(numericScore) || isNaN(numericScore) || numericScore < 0 || !Number.isInteger(numericScore)) {
+    console.warn('[ScorePipeline:submitGameScore] Rejected: INVALID_SCORE non-integer/finite/negative:', numericScore);
     return { submitted: false, reason: 'INVALID_SCORE' };
   }
 
   // 3. Game-Specific Maximum Score Plausibility Barrier
   const maxAllowed = MAX_SCORE_THRESHOLDS[gameId] || 100000;
+  console.log(`[ScorePipeline:submitGameScore] Threshold check for ${gameId}: score=${numericScore}, maxAllowed=${maxAllowed}`);
   if (numericScore > maxAllowed) {
+    console.warn(`[ScorePipeline:submitGameScore] Rejected: EXCEEDS_MAX_SCORE (score=${numericScore} > maxAllowed=${maxAllowed})`);
     return {
       submitted: false,
       reason: 'EXCEEDS_MAX_SCORE',
@@ -68,12 +75,17 @@ export async function submitGameScore({ gameId, score, metadata = {} }) {
 
   try {
     // 5. Authoritative Session Identity Verification
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+    if (sessionErr) {
+      console.warn('[ScorePipeline:submitGameScore] Auth getSession error:', sessionErr);
+    }
     if (!session || !session.user) {
+      console.warn('[ScorePipeline:submitGameScore] Rejected: GUEST_USER (No active authenticated Supabase session)');
       return { submitted: false, reason: 'GUEST_USER' };
     }
 
     const userId = session.user.id;
+    console.log(`[ScorePipeline:submitGameScore] Calling Supabase RPC 'submit_game_score' for user ${userId}, game ${gameId}, score ${safeIntegerScore}...`);
 
     // 6. Execute Server-Authoritative RPC (submit_game_score)
     const { data: rpcData, error: rpcError } = await supabase.rpc('submit_game_score', {
@@ -83,13 +95,15 @@ export async function submitGameScore({ gameId, score, metadata = {} }) {
     });
 
     if (rpcError) {
-      console.warn('Score submission RPC error:', rpcError.message);
+      console.error('[ScorePipeline:submitGameScore] Supabase RPC returned error:', rpcError.message, rpcError);
       return {
         submitted: false,
         reason: 'DATABASE_ERROR',
         error: rpcError.message,
       };
     }
+
+    console.log('[ScorePipeline:submitGameScore] Supabase RPC returned response:', rpcData);
 
     if (rpcData && typeof rpcData === 'object') {
       return {
@@ -108,7 +122,7 @@ export async function submitGameScore({ gameId, score, metadata = {} }) {
       reason: 'UNEXPECTED_RESPONSE',
     };
   } catch (err) {
-    console.warn('Score submission network warning:', err);
+    console.error('[ScorePipeline:submitGameScore] Exception during submission:', err);
     return { submitted: false, reason: 'NETWORK_ERROR', error: err.message };
   }
 }

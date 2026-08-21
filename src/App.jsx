@@ -757,16 +757,20 @@ export default function App() {
     }
 
     // Asynchronous Competitive Score Submission to Supabase
+    console.log(`[ScorePipeline:handleGameOver] Game: ${currentGameId}, finalScore: ${finalScore}, newHighScore: ${newHighScore}, user:`, user?.id, 'isGuest:', isGuest);
     if (!user || isGuest) {
+      console.log('[ScorePipeline:handleGameOver] Submission skipped: User is unauthenticated or Guest');
       setSubmissionStatus('GUEST');
     } else {
       setSubmissionStatus(null);
+      console.log(`[ScorePipeline:handleGameOver] Dispatching submitGameScore for user ${user.id}...`);
       submitGameScore({
         gameId: currentGameId,
         score: finalScore,
         metadata: finalMetrics,
       })
         .then((res) => {
+          console.log('[ScorePipeline:handleGameOver] submitGameScore result:', res);
           if (res.submitted) {
             setSubmissionStatus(res.isNewPersonalBest ? 'NEW_BEST' : 'SUBMITTED');
           } else if (res.reason === 'NOT_PERSONAL_BEST') {
@@ -776,10 +780,12 @@ export default function App() {
           } else if (res.reason === 'PLACEHOLDER_USERNAME') {
             setSubmissionStatus('GUEST');
           } else {
+            console.warn('[ScorePipeline:handleGameOver] submitGameScore returned error reason:', res.reason, res);
             setSubmissionStatus('ERROR');
           }
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error('[ScorePipeline:handleGameOver] submitGameScore promise rejected:', err);
           setSubmissionStatus('ERROR');
         });
     }
