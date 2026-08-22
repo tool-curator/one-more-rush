@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl = (process.env.VITE_SITE_URL || env.VITE_SITE_URL || '').replace(/\/+$/, '');
 
   return {
+    base: './',
     build: {
       rollupOptions: {
         output: {

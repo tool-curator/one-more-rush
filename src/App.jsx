@@ -475,137 +475,73 @@ export default function App() {
     setAchievementToasts((prev) => prev.filter((b) => (b.key || b.id) !== badgeKey));
   };
 
-  // Unified routing & SEO synchronization for HTML5 History & hash migration
-  useEffect(() => {
-    const syncRoute = () => {
-      let pathname = window.location.pathname || '/';
-      const hash = window.location.hash || '';
+  // Helper to detect if running inside an embedded iframe, CDN, or subdirectory environment
+  const isSubdirectoryOrEmbedded = () => {
+    if (typeof window === 'undefined') return false;
+    const p = window.location.pathname || '';
+    const isIframe = window.self !== window.top;
+    return (
+      isIframe ||
+      p.endsWith('.html') ||
+      p.includes('/embed/') ||
+      (p !== '/' && !p.startsWith('/games/') && !['/daily', '/locker', '/leaderboard', '/login', '/signup', '/profile', '/about', '/privacy', '/terms', '/support', '/404'].includes(p.replace(/\/+$/, '')))
+    );
+  };
 
-      // Smooth hash migration for legacy links (e.g. /#/about -> /about)
-      if (hash.startsWith('#/')) {
-        const hashSub = hash.slice(2);
-        let targetPath = '/' + hashSub;
-        if (targetPath.startsWith('/play/')) {
-          targetPath = targetPath.replace('/play/', '/games/');
+  // Safe browser history state updater
+  const updateBrowserHistory = (targetPath) => {
+    if (typeof window === 'undefined') return;
+    try {
+      if (isSubdirectoryOrEmbedded()) {
+        const hash = targetPath === '/' ? '' : '#' + targetPath;
+        if (window.location.hash !== hash) {
+          window.history.pushState({}, '', hash || window.location.pathname);
         }
-        window.history.replaceState({}, '', targetPath);
-        pathname = targetPath;
-      } else if (hash === '#' || hash === '#/') {
-        window.history.replaceState({}, '', '/');
-        pathname = '/';
-      }
-
-      const cleanPath = pathname.replace(/\/+$/, '') || '/';
-
-      if (cleanPath === '/') {
-        setActiveTab('home');
-        setGameState('HOME');
-        updatePageSEO('/');
-      } else if (cleanPath === '/daily' || cleanPath === '/daily-challenge') {
-        setActiveTab('daily');
-        setGameState('DAILY_PAGE');
-        updatePageSEO('/daily');
-      } else if (cleanPath === '/locker' || cleanPath === '/rush-locker') {
-        setActiveTab('locker');
-        setGameState('LOCKER_PAGE');
-        updatePageSEO('/locker');
-      } else if (cleanPath === '/leaderboard' || cleanPath === '/leaderboards') {
-        setActiveTab('leaderboard');
-        setGameState('LEADERBOARD_PAGE');
-        updatePageSEO('/leaderboard');
-      } else if (cleanPath === '/login' || cleanPath === '/signin') {
-        setActiveTab('login');
-        setGameState('LOGIN_PAGE');
-        updatePageSEO('/login');
-      } else if (cleanPath === '/signup' || cleanPath === '/register') {
-        setActiveTab('signup');
-        setGameState('SIGNUP_PAGE');
-        updatePageSEO('/signup');
-      } else if (cleanPath === '/profile') {
-        setActiveTab('profile');
-        setGameState('PROFILE_PAGE');
-        updatePageSEO('/profile');
-      } else if (cleanPath === '/about') {
-        setActiveTab('about');
-        setGameState('ABOUT_PAGE');
-        updatePageSEO('/about');
-      } else if (cleanPath === '/privacy') {
-        setActiveTab('privacy');
-        setGameState('PRIVACY_PAGE');
-        updatePageSEO('/privacy');
-      } else if (cleanPath === '/terms' || cleanPath === '/legal') {
-        setActiveTab('terms');
-        setGameState('TERMS_PAGE');
-        updatePageSEO('/terms');
-      } else if (cleanPath === '/support' || cleanPath === '/faq') {
-        setActiveTab('support');
-        setGameState('SUPPORT_PAGE');
-        updatePageSEO('/support');
-      } else if (cleanPath.startsWith('/games/') || cleanPath.startsWith('/play/')) {
-        const gameKey = cleanPath.replace(/^\/(games|play)\//, '');
-        const validGame = getGameById(gameKey);
-        if (validGame) {
-          setCurrentGameId(gameKey);
-          setGameState('HOWTOPLAY');
-          updatePageSEO(`/games/${gameKey}`);
-        } else {
-          setActiveTab('');
-          setGameState('NOT_FOUND_PAGE');
-          updatePageSEO('/404');
-        }
-      } else if (cleanPath === '/404') {
-        setActiveTab('');
-        setGameState('NOT_FOUND_PAGE');
-        updatePageSEO('/404');
       } else {
-        setActiveTab('');
-        setGameState('NOT_FOUND_PAGE');
-        updatePageSEO('/404');
+        window.history.pushState({}, '', targetPath);
       }
-    };
+    } catch (err) {
+      console.warn('[Routing] History update skipped:', err?.message || err);
+    }
+  };
 
-    // Initial sync on mount
-    syncRoute();
+  // Robust route extractor supporting standard pathname and hash routing
+  const extractAppRoute = () => {
+    if (typeof window === 'undefined') return '/';
+    const hash = window.location.hash || '';
 
-    window.addEventListener('popstate', syncRoute);
-    window.addEventListener('hashchange', syncRoute);
-    return () => {
-      window.removeEventListener('popstate', syncRoute);
-      window.removeEventListener('hashchange', syncRoute);
-    };
-  }, []);
+    // 1. Check for hash routing (e.g. #/games/aim, #games/aim, #/daily)
+    if (hash && hash !== '#' && hash !== '#/') {
+      let hashSub = hash.replace(/^#\/?/, '/');
+      if (hashSub.startsWith('/play/')) {
+        hashSub = hashSub.replace('/play/', '/games/');
+      }
+      return hashSub;
+    }
 
-  const appShellRef = React.useRef(null);
+    // 2. Check standard pathname
+    let pathname = window.location.pathname || '/';
+    const cleanPath = pathname.replace(/\/+$/, '') || '/';
 
-  // Desktop background cursor spotlight tracking (RAF throttled, no re-renders)
-  useEffect(() => {
-    if (gameState !== 'HOME' && gameState !== 'DAILY_PAGE' && gameState !== 'LOCKER_PAGE' && gameState !== 'LEADERBOARD_PAGE') return;
-    const isPointerFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!isPointerFine || prefersReducedMotion) return;
+    // If loaded via nested path/index.html (e.g. CrazyGames iframe /embed/onemorerush/index.html)
+    if (cleanPath.endsWith('/index.html') || cleanPath.endsWith('.html') || (isSubdirectoryOrEmbedded() && !cleanPath.startsWith('/games/'))) {
+      return '/';
+    }
 
-    let rafId;
-    const handleMouseMove = (e) => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        if (appShellRef.current) {
-          appShellRef.current.style.setProperty('--mouse-bg-x', `${e.clientX}px`);
-          appShellRef.current.style.setProperty('--mouse-bg-y', `${e.clientY}px`);
-        }
-        rafId = null;
-      });
-    };
+    return cleanPath;
+  };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [gameState]);
+  const applyRoute = (routePath) => {
+    let cleanPath = routePath.replace(/\/+$/, '') || '/';
+    if (cleanPath === '/daily-challenge') cleanPath = '/daily';
+    if (cleanPath === '/rush-locker') cleanPath = '/locker';
+    if (cleanPath === '/leaderboards') cleanPath = '/leaderboard';
+    if (cleanPath === '/signin') cleanPath = '/login';
+    if (cleanPath === '/register') cleanPath = '/signup';
+    if (cleanPath === '/legal') cleanPath = '/terms';
+    if (cleanPath === '/faq') cleanPath = '/support';
+    if (cleanPath.startsWith('/play/')) cleanPath = cleanPath.replace('/play/', '/games/');
 
-  const navigateTo = (path) => {
-    window.history.pushState({}, '', path);
-    const cleanPath = path.replace(/\/+$/, '') || '/';
     if (cleanPath === '/') {
       setActiveTab('home');
       setGameState('HOME');
@@ -651,23 +587,77 @@ export default function App() {
       setGameState('SUPPORT_PAGE');
       updatePageSEO('/support');
     } else if (cleanPath.startsWith('/games/')) {
-      const gId = cleanPath.replace('/games/', '');
-      const validGame = getGameById(gId);
+      const gameKey = cleanPath.replace('/games/', '');
+      const validGame = getGameById(gameKey);
       if (validGame) {
-        prefetchGameChunk(gId);
-        setCurrentGameId(gId);
+        setCurrentGameId(gameKey);
         setGameState('HOWTOPLAY');
-        updatePageSEO(`/games/${gId}`);
+        updatePageSEO(`/games/${gameKey}`);
       } else {
         setActiveTab('');
         setGameState('NOT_FOUND_PAGE');
         updatePageSEO('/404');
       }
+    } else if (cleanPath === '/404') {
+      setActiveTab('');
+      setGameState('NOT_FOUND_PAGE');
+      updatePageSEO('/404');
     } else {
       setActiveTab('');
       setGameState('NOT_FOUND_PAGE');
       updatePageSEO('/404');
     }
+  };
+
+  // Unified routing & SEO synchronization for HTML5 History & hash migration
+  useEffect(() => {
+    const syncRoute = () => {
+      const route = extractAppRoute();
+      applyRoute(route);
+    };
+
+    // Initial sync on mount
+    syncRoute();
+
+    window.addEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
+  }, []);
+
+  const appShellRef = React.useRef(null);
+
+  // Desktop background cursor spotlight tracking (RAF throttled, no re-renders)
+  useEffect(() => {
+    if (gameState !== 'HOME' && gameState !== 'DAILY_PAGE' && gameState !== 'LOCKER_PAGE' && gameState !== 'LEADERBOARD_PAGE') return;
+    const isPointerFine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!isPointerFine || prefersReducedMotion) return;
+
+    let rafId = null;
+    const handleMouseMove = (e) => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        if (appShellRef.current) {
+          appShellRef.current.style.setProperty('--cursor-x', `${e.clientX}px`);
+          appShellRef.current.style.setProperty('--cursor-y', `${e.clientY}px`);
+        }
+        rafId = null;
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [gameState]);
+
+  const navigateTo = (path) => {
+    updateBrowserHistory(path);
+    applyRoute(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -675,7 +665,7 @@ export default function App() {
   const handleStartGame = (gameId) => {
     prefetchGameChunk(gameId);
     setCurrentGameId(gameId);
-    window.history.pushState({}, '', `/games/${gameId}`);
+    updateBrowserHistory(`/games/${gameId}`);
     setGameState('HOWTOPLAY');
     updatePageSEO(`/games/${gameId}`);
   };
@@ -694,7 +684,7 @@ export default function App() {
         }
       });
     }
-    window.history.pushState({}, '', `/games/${targetChallenge.gameId}`);
+    updateBrowserHistory(`/games/${targetChallenge.gameId}`);
     setGameState('HOWTOPLAY');
     updatePageSEO(`/games/${targetChallenge.gameId}`);
   };

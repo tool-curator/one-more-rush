@@ -348,6 +348,18 @@ function renderRouteHtml(meta) {
     `<div id="root">${initialBodyHtml}</div>`
   );
 
+  // For nested routes (e.g. /games/aim), adjust relative asset paths (./assets/ -> ../../assets/)
+  const segments = (meta.path || '/').split('/').filter(Boolean);
+  const depth = segments.length;
+  if (depth > 0) {
+    const relativePrefix = '../'.repeat(depth);
+    html = html
+      .replace(/(src|href)="(\.\/|\/)?assets\//g, `$1="${relativePrefix}assets/`)
+      .replace(/(src|href)="(\.\/|\/)?favicon\.svg"/g, `$1="${relativePrefix}favicon.svg"`)
+      .replace(/(src|href)="(\.\/|\/)?apple-touch-icon\.png"/g, `$1="${relativePrefix}apple-touch-icon.png"`)
+      .replace(/(src|href)="(\.\/|\/)?manifest\.json"/g, `$1="${relativePrefix}manifest.json"`);
+  }
+
   return html;
 }
 
