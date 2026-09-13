@@ -12,7 +12,10 @@ import {
   RotateCcw,
   User,
   LogIn,
+  HelpCircle,
+  ArrowRight,
 } from 'lucide-react';
+import { PLATFORM_CONTENT } from '../config/platformContent.js';
 import { LEADERBOARD_GAMES, TIME_PERIODS, getGameLocalStats } from '../services/leaderboardService';
 import { loadLockerState, FRAMES_INVENTORY, TITLES_INVENTORY } from '../services/lockerService';
 import { fetchLeaderboard, fetchUserGameRank } from '../services/scoreService';
@@ -521,6 +524,62 @@ export function LeaderboardPage({ scores = {}, onPlayGame, onGoHome, onNavigateT
             </button>
           </div>
         </div>
+      </div>
+
+      {/* ── 4. LEADERBOARD RULES & VERIFICATION GUIDE ─────────────────── */}
+      <div className="lb-guide-section glass-panel">
+        <div className="section-title-row font-mono">
+          <span className="section-icon">🛡️</span>
+          <h2 className="section-title font-heading">RANKINGS &amp; SCORE VERIFICATION</h2>
+        </div>
+
+        <p className="lb-guide-intro font-body">
+          {PLATFORM_CONTENT.leaderboard.introduction}
+        </p>
+
+        <div className="lb-rules-grid">
+          {PLATFORM_CONTENT.leaderboard.rankingRules.map((rule, idx) => (
+            <div key={idx} className="lb-rule-card">
+              <span className="rule-step-tag font-mono">RULE 0{idx + 1}</span>
+              <h3 className="rule-title font-heading">{rule.title}</h3>
+              <p className="rule-desc">{rule.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="lb-guide-links font-mono">
+          <a href="/daily" className="lb-link-btn btn-daily">
+            <span>EARN STREAK POINTS IN DAILY</span>
+            <ArrowRight size={14} />
+          </a>
+          <a href="/locker" className="lb-link-btn btn-locker">
+            <span>UNLOCK COSMETICS IN LOCKER</span>
+            <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* ── 5. LEADERBOARD FAQ ───────────────────────────────────────── */}
+      <div className="lb-faq-section glass-panel">
+        <div className="section-title-row font-mono">
+          <span className="section-icon">❓</span>
+          <h2 className="section-title font-heading">LEADERBOARD FAQ</h2>
+        </div>
+        <p className="lb-faq-subtitle font-body">
+          Answers to common questions regarding world records, score submission, and guest vs authenticated rankings.
+        </p>
+
+        <dl className="lb-faq-list">
+          {PLATFORM_CONTENT.leaderboard.faq.map((item, idx) => (
+            <div key={idx} className="lb-faq-item">
+              <dt className="lb-faq-question font-heading">
+                <HelpCircle size={18} className="text-cyan" aria-hidden="true" />
+                <span>{item.q}</span>
+              </dt>
+              <dd className="lb-faq-answer">{item.a}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );

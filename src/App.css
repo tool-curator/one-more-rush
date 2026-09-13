@@ -108,3 +108,46 @@
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   ADSENSE AD SAFETY & GAMEPLAY ISOLATION
+   Prevent automated or injected ad containers from overlaying active canvas,
+   game controls, countdown overlays, score displays, or game-over dialogs.
+   ========================================================================== */
+
+/* 1. Complete ad suppression during active gameplay sessions */
+.app-shell.game-mode ins.adsbygoogle,
+.app-shell.game-mode .google-auto-placed,
+.app-shell.game-mode [data-google-query-id],
+.app-shell.game-mode iframe[id^="aswift_"],
+.app-shell.game-mode iframe[id^="google_ads_iframe"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+/* 2. Interactive canvas & controls click-hijack shield */
+.game-viewport,
+.game-canvas,
+.canvas-wrapper,
+.controls-container,
+.touch-zone,
+.countdown-overlay,
+.gameover-overlay,
+.restart-modal {
+  contain: layout paint;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+/* 3. Utility / Private Route ad suppression */
+.auth-page-container ins.adsbygoogle,
+.profile-view ins.adsbygoogle,
+.not-found-page ins.adsbygoogle {
+  display: none !important;
+}

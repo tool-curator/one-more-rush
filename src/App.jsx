@@ -10,8 +10,10 @@ import { HomeLockerBanner } from './components/HomeLockerBanner';
 import { DailyChallengeOverlay } from './components/DailyChallengeOverlay';
 import { DailyChallengeResultModal } from './components/DailyChallengeResultModal';
 import { LeaderboardSection } from './components/LeaderboardSection';
+import { HomeGuideSection } from './components/HomeGuideSection';
 import { AchievementUnlockToast } from './components/AchievementUnlockToast';
 import { Footer } from './components/Footer';
+import { GameLandingPage } from './pages/GameLandingPage';
 import { HowToPlayModal } from './components/HowToPlayModal';
 import { Countdown } from './components/Countdown';
 import { GameOverModal } from './components/GameOverModal';
@@ -40,6 +42,8 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then((m) => ({ default:
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
 const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
 const SupportPage = lazy(() => import('./pages/SupportPage').then((m) => ({ default: m.SupportPage })));
+const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage').then((m) => ({ default: m.CookiePolicyPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
 const LoginPage = lazy(() => import('./pages/LoginPage').then((m) => ({ default: m.LoginPage })));
 const SignupPage = lazy(() => import('./pages/SignupPage').then((m) => ({ default: m.SignupPage })));
@@ -484,7 +488,7 @@ export default function App() {
       isIframe ||
       p.endsWith('.html') ||
       p.includes('/embed/') ||
-      (p !== '/' && !p.startsWith('/games/') && !['/daily', '/locker', '/leaderboard', '/login', '/signup', '/profile', '/about', '/privacy', '/terms', '/support', '/404'].includes(p.replace(/\/+$/, '')))
+      (p !== '/' && !p.startsWith('/games/') && !['/daily', '/locker', '/leaderboard', '/login', '/signup', '/profile', '/about', '/privacy', '/terms', '/support', '/cookies', '/contact', '/404'].includes(p.replace(/\/+$/, '')))
     );
   };
 
@@ -586,6 +590,14 @@ export default function App() {
       setActiveTab('support');
       setGameState('SUPPORT_PAGE');
       updatePageSEO('/support');
+    } else if (cleanPath === '/cookies' || cleanPath === '/cookie-policy') {
+      setActiveTab('cookies');
+      setGameState('COOKIES_PAGE');
+      updatePageSEO('/cookies');
+    } else if (cleanPath === '/contact' || cleanPath === '/contact-us') {
+      setActiveTab('contact');
+      setGameState('CONTACT_PAGE');
+      updatePageSEO('/contact');
     } else if (cleanPath.startsWith('/games/')) {
       const gameKey = cleanPath.replace('/games/', '');
       const validGame = getGameById(gameKey);
@@ -882,6 +894,16 @@ export default function App() {
       return;
     }
 
+    if (tabId === 'cookies') {
+      navigateTo('/cookies');
+      return;
+    }
+
+    if (tabId === 'contact') {
+      navigateTo('/contact');
+      return;
+    }
+
     if (window.location.pathname !== '/') {
       navigateTo('/');
     }
@@ -908,6 +930,8 @@ export default function App() {
     'PRIVACY_PAGE',
     'TERMS_PAGE',
     'SUPPORT_PAGE',
+    'COOKIES_PAGE',
+    'CONTACT_PAGE',
     'NOT_FOUND_PAGE',
     'HOWTOPLAY',
   ].includes(gameState);
@@ -976,6 +1000,14 @@ export default function App() {
               }}
               scores={allScores}
               onNavigateToLeaderboard={() => handleNavClick('leaderboard')}
+            />
+
+            <HomeGuideSection
+              onPlayGame={(gameId) => {
+                setIsDailyChallengeMode(false);
+                handleStartGame(gameId);
+              }}
+              onNavClick={handleNavClick}
             />
 
             <Footer
@@ -1210,6 +1242,62 @@ export default function App() {
         </>
       )}
 
+      {/* Dedicated Cookie Policy Page */}
+      {gameState === 'COOKIES_PAGE' && (
+        <>
+          <Header
+            activeTab={activeTab}
+            onNavClick={handleNavClick}
+            audioFx={audioFx}
+            rushPoints={dailyProgress.rushPoints}
+            streak={dailyProgress.streak}
+            locker={lockerState}
+          />
+
+          <main className="lobby-content">
+            <Suspense fallback={<div className="lobby-loading font-mono">LOADING COOKIE POLICY...</div>}>
+              <CookiePolicyPage />
+            </Suspense>
+
+            <Footer
+              onPlayGame={(gameId) => {
+                setIsDailyChallengeMode(false);
+                handleStartGame(gameId);
+              }}
+              onNavClick={handleNavClick}
+            />
+          </main>
+        </>
+      )}
+
+      {/* Dedicated Contact Page */}
+      {gameState === 'CONTACT_PAGE' && (
+        <>
+          <Header
+            activeTab={activeTab}
+            onNavClick={handleNavClick}
+            audioFx={audioFx}
+            rushPoints={dailyProgress.rushPoints}
+            streak={dailyProgress.streak}
+            locker={lockerState}
+          />
+
+          <main className="lobby-content">
+            <Suspense fallback={<div className="lobby-loading font-mono">LOADING CONTACT...</div>}>
+              <ContactPage />
+            </Suspense>
+
+            <Footer
+              onPlayGame={(gameId) => {
+                setIsDailyChallengeMode(false);
+                handleStartGame(gameId);
+              }}
+              onNavClick={handleNavClick}
+            />
+          </main>
+        </>
+      )}
+
       {/* Dedicated Login Page */}
       {gameState === 'LOGIN_PAGE' && (
         <>
@@ -1352,106 +1440,54 @@ export default function App() {
         onSkip={() => setDismissedUsernameModal(true)}
       />
 
-      {/* How To Play Modal */}
-      {gameState === 'HOWTOPLAY' && (
-        <HowToPlayModal
-          gameId={currentGameId}
-          gameName={currentGame.name}
-          title={`${currentGame.icon} ${currentGame.name}`}
-          subtitle={
-            currentGameId === 'dodge'
-              ? 'Survive. Collect. Risk everything.'
-              : currentGameId === 'stack'
-              ? 'How high can you build?'
-              : currentGameId === 'number-rush'
-              ? "Think fast. Numbers don't wait."
-              : currentGameId === 'memory'
-              ? 'How much can you remember?'
-              : currentGameId === 'color-maze'
-              ? 'Paint every tile.'
-              : 'How fast can you react?'
-          }
-          overview={
-            currentGameId === 'aim'
-              ? 'AIM is a high-speed target acquisition game. React instantly, aim accurately, and pop shrinking targets before the round countdown expires.'
-              : currentGameId === 'dodge'
-              ? 'DODGE is a survival reflex game. Pilot your core through lethal hazard waves, collect score multipliers, and graze close to danger for bonus points.'
-              : currentGameId === 'stack'
-              ? 'STACK tests your precision timing and rhythm. Place oscillating blocks on top of the tower without overhang slicing to construct the tallest skyscraper.'
-              : currentGameId === 'number-rush'
-              ? 'NUMBER RUSH is a mental arithmetic speed sprint. Calculate math equations in milliseconds and select the matching answer tile before time runs out.'
-              : currentGameId === 'memory'
-              ? 'MEMORY challenges sequence recall. Memorize illuminated pattern expansions and reproduce the full sequence accurately under time pressure.'
-              : 'COLOR MAZE is a labyrinth sliding puzzle. Swipe and slide the roller ball through corridors to paint 100% of the maze floor before time expires.'
-          }
-          controls={
-            currentGameId === 'aim'
-              ? 'Mouse Click or Screen Tap on targets'
-              : currentGameId === 'dodge'
-              ? 'WASD / Arrow Keys or Touch Joystick'
-              : currentGameId === 'stack'
-              ? 'Spacebar, Click, or Tap to drop block'
-              : currentGameId === 'number-rush'
-              ? 'Keys 1-4 or Tap on answer tile'
-              : currentGameId === 'memory'
-              ? 'Click or Tap pattern buttons'
-              : 'Arrow Keys, WASD, or Touch Swipe'
-          }
-          skillsTested={
-            currentGameId === 'aim'
-              ? 'Reaction Speed & Click Precision'
-              : currentGameId === 'dodge'
-              ? 'Reflexes & Hazard Avoidance'
-              : currentGameId === 'stack'
-              ? 'Timing Precision & Rhythm'
-              : currentGameId === 'number-rush'
-              ? 'Mental Math & Rapid Processing'
-              : currentGameId === 'memory'
-              ? 'Working Memory & Pattern Recall'
-              : 'Maze Pathfinding & Spatial Timing'
-          }
-          proTip={
-            currentGameId === 'aim'
-              ? 'Chain hits without missing to maintain maximum score combo multipliers.'
-              : currentGameId === 'dodge'
-              ? 'Collect yellow gems to accelerate multiplier tiers while grazing hazard borders.'
-              : currentGameId === 'stack'
-              ? '3 consecutive perfect drops restores chopped block width.'
-              : currentGameId === 'number-rush'
-              ? 'Use parity and estimation tricks to eliminate wrong answers instantly.'
-              : currentGameId === 'memory'
-              ? 'Group sequence steps into chunks of 3 for rapid recall.'
-              : 'Chain swipe turns continuously so the roller never stops moving.'
-          }
-          rules={
-            currentGameId === 'dodge'
-              ? DODGE_RULES
-              : currentGameId === 'stack'
-              ? STACK_RULES
-              : currentGameId === 'number-rush'
-              ? NUMBER_RUSH_RULES
-              : currentGameId === 'memory'
-              ? MEMORY_RULES
-              : currentGameId === 'color-maze'
-              ? COLOR_MAZE_RULES
-              : undefined
-          }
-          flowSteps={
-            currentGameId === 'dodge'
-              ? DODGE_FLOW
-              : currentGameId === 'stack'
-              ? STACK_FLOW
-              : currentGameId === 'number-rush'
-              ? NUMBER_RUSH_FLOW
-              : currentGameId === 'memory'
-              ? MEMORY_FLOW
-              : currentGameId === 'color-maze'
-              ? COLOR_MAZE_FLOW
-              : undefined
-          }
-          onStart={handleConfirmStart}
-          onClose={handleGoHome}
-        />
+      {/* Game Landing Page & Complete Documentation Guide */}
+      {(gameState === 'HOWTOPLAY' || gameState === 'GAME_PAGE') && (
+        <>
+          <Header
+            activeTab={activeTab}
+            onNavClick={handleNavClick}
+            audioFx={audioFx}
+            rushPoints={dailyProgress.rushPoints}
+            streak={dailyProgress.streak}
+            locker={lockerState}
+          />
+
+          <main className="lobby-content">
+            <GameLandingPage
+              gameId={currentGameId}
+              bestScore={
+                currentGameId === 'aim'
+                  ? aimBestScore
+                  : currentGameId === 'dodge'
+                  ? dodgeBestScore
+                  : currentGameId === 'stack'
+                  ? stackBestScore
+                  : currentGameId === 'number-rush'
+                  ? numberRushBestScore
+                  : currentGameId === 'memory'
+                  ? memoryBestScore
+                  : currentGameId === 'color-maze'
+                  ? colorMazeBestScore
+                  : 0
+              }
+              isDailyChallenge={isDailyChallengeMode}
+              onStart={handleConfirmStart}
+              onNavigateToGame={(gameId) => {
+                setIsDailyChallengeMode(false);
+                handleStartGame(gameId);
+              }}
+              onNavClick={handleNavClick}
+            />
+
+            <Footer
+              onPlayGame={(gameId) => {
+                setIsDailyChallengeMode(false);
+                handleStartGame(gameId);
+              }}
+              onNavClick={handleNavClick}
+            />
+          </main>
+        </>
       )}
 
       {/* Countdown Screen */}

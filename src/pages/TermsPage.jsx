@@ -1,10 +1,10 @@
 import React from 'react';
-import { FileText, ShieldAlert, Award, Scale, HelpCircle } from 'lucide-react';
+import { FileText, ShieldAlert, Award, Scale, HelpCircle, Mail } from 'lucide-react';
+import { SUPPORT_CONFIG } from '../config/brand.js';
 import './InfoPages.css';
 
 export function TermsPage() {
-  const lastUpdated = 'August 2026';
-  const SUPPORT_CONTACT_NOTICE = 'Contact information will be provided upon live service release.';
+  const lastUpdated = 'September 2026';
 
   return (
     <div className="info-page-container">
@@ -108,13 +108,19 @@ export function TermsPage() {
 
         {/* Section 10: Contact */}
         <section>
-          <h2 className="font-heading">10. CONTACT</h2>
+          <h2 className="font-heading">10. CONTACT &amp; INQUIRIES</h2>
           <p>
-            For inquiries regarding these Terms of Use:
+            For questions or legal inquiries regarding these Terms of Use, platform rules, or fair play policies, please contact us:
           </p>
           <div className="info-callout-box">
             <span className="info-callout-title font-mono">SUPPORT CONTACT</span>
-            <p className="info-callout-desc font-mono">{SUPPORT_CONTACT_NOTICE}</p>
+            <p className="info-callout-desc font-mono">
+              Email:{' '}
+              <a href={`mailto:${SUPPORT_CONFIG.supportEmail}`} style={{ color: '#00f2fe', textDecoration: 'underline' }}>
+                {SUPPORT_CONFIG.supportEmail}
+              </a>
+              {' '}• Visit our dedicated <a href="/contact" style={{ color: '#00f2fe', textDecoration: 'underline' }}>Contact Page</a>.
+            </p>
           </div>
         </section>
       </div>

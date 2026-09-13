@@ -34,8 +34,9 @@ export function SupportPage() {
   const FAQ_ITEMS = [
     {
       q: 'How do I earn RP?',
-      a: 'Rush Points (RP) are earned through gameplay performance and daily consistency. You earn +35 RP for your first completion of a Quick Win Daily Challenge, +600 RP for the Extreme Rush Challenge, +10 RP for your Daily Visit bonus, and bonus RP when establishing milestone personal bests across all arcade games. RP is 100% virtual and used exclusively in the Rush Locker for cosmetic unlocks.',
+      a: 'Rush Points (RP) are earned through gameplay performance and daily consistency. You earn 10–50 RP for your first completion of a Quick Win Daily Challenge, 500–900 RP for the Extreme Rush Challenge, +10 RP for your Daily Visit bonus, streak milestone bonuses (+100 to +500 RP), and bonus RP when establishing milestone personal bests across all arcade games. RP is 100% virtual and used exclusively in the Rush Locker for cosmetic unlocks.',
     },
+
     {
       q: 'How does Daily Challenge work?',
       a: 'Every calendar day (at 00:00 UTC), a new challenge deterministically rotates across the six arcade games. There are two challenge tiers available every day: "Quick Win" (an accessible milestone) and "Extreme Rush" (a high-precision mastery run). You can practice and replay as many times as you like, but reward RP is granted on your first successful clear of the day.',

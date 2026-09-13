@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Flame, Clock, Trophy, Play, CheckCircle2, Circle, Gem, ArrowRight, Sparkles, RefreshCw, ShieldAlert, Zap } from 'lucide-react';
+import { Flame, Clock, Trophy, Play, CheckCircle2, Circle, Gem, ArrowRight, Sparkles, RefreshCw, ShieldAlert, Zap, HelpCircle } from 'lucide-react';
+import { PLATFORM_CONTENT } from '../config/platformContent.js';
 import {
   getTodayChallenges,
   loadDailyProgress,
@@ -347,50 +348,61 @@ export function DailyPage({ onPlayChallenge, onGoHome }) {
         </div>
       </div>
 
-      {/* How Daily Challenges Work (5-Step Explanation) */}
+      {/* How Daily Challenges Work & Progression Guide */}
       <div className="how-it-works-section glass-panel">
-        <h3 className="how-title font-heading">HOW DAILY CHALLENGES WORK</h3>
-        <div className="how-grid">
-          <div className="how-step-card">
-            <span className="step-num font-mono">01</span>
-            <h4 className="step-title font-heading">TWO CHALLENGES</h4>
-            <p className="step-desc">
-              Every day brings an accessible <strong>Quick Win</strong> and an intense <strong>Extreme Rush</strong>.
-            </p>
-          </div>
-
-          <div className="how-step-card">
-            <span className="step-num font-mono">02</span>
-            <h4 className="step-title font-heading">PLAY EITHER OR BOTH</h4>
-            <p className="step-desc">
-              Complete Quick Win for a fast reward, or test your mastery on Extreme Rush.
-            </p>
-          </div>
-
-          <div className="how-step-card">
-            <span className="step-num font-mono">03</span>
-            <h4 className="step-title font-heading">EARN RUSH POINTS</h4>
-            <p className="step-desc">
-              Earn 10–50 RP for Quick Win and 500–1,000 RP for Extreme Rush once per day.
-            </p>
-          </div>
-
-          <div className="how-step-card">
-            <span className="step-num font-mono">04</span>
-            <h4 className="step-title font-heading">QUALIFY YOUR STREAK</h4>
-            <p className="step-desc">
-              Completing at least one challenge keeps your daily streak alive and triggers milestone bonuses.
-            </p>
-          </div>
-
-          <div className="how-step-card">
-            <span className="step-num font-mono">05</span>
-            <h4 className="step-title font-heading">SPEND IN THE LOCKER</h4>
-            <p className="step-desc">
-              Save your Rush Points to unlock exclusive arcade cosmetics in the upcoming Rush Locker.
-            </p>
-          </div>
+        <div className="section-header-row">
+          <span className="section-tag font-mono">
+            <Sparkles size={14} className="text-cyan" /> RULES &amp; MECHANICS
+          </span>
+          <h2 className="how-title font-heading">HOW DAILY CHALLENGES WORK</h2>
+          <p className="how-subtitle font-body">
+            {PLATFORM_CONTENT.daily.introduction}
+          </p>
         </div>
+
+        <div className="how-grid">
+          {PLATFORM_CONTENT.daily.howItWorks.map((item, idx) => (
+            <div key={idx} className="how-step-card">
+              <span className="step-num font-mono">0{idx + 1}</span>
+              <h3 className="step-title font-heading">{item.title}</h3>
+              <p className="step-desc">{item.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Discovery Links */}
+        <div className="daily-guide-links font-mono">
+          <a href="/locker" className="guide-link-btn btn-locker-link">
+            <span>SPEND POINTS IN RUSH LOCKER</span>
+            <ArrowRight size={14} />
+          </a>
+          <a href="/leaderboard" className="guide-link-btn btn-leaderboard-link">
+            <span>VIEW GLOBAL LEADERBOARDS</span>
+            <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* Daily Challenge FAQ */}
+      <div className="daily-faq-section glass-panel">
+        <div className="section-header-row">
+          <h2 className="how-title font-heading">DAILY CHALLENGE FAQ</h2>
+          <p className="how-subtitle font-body">
+            Common questions regarding daily challenge resets, streaks, and Rush Point rewards.
+          </p>
+        </div>
+
+        <dl className="daily-faq-list">
+          {PLATFORM_CONTENT.daily.faq.map((item, idx) => (
+            <div key={idx} className="daily-faq-item">
+              <dt className="daily-faq-question font-heading">
+                <HelpCircle size={18} className="text-cyan" aria-hidden="true" />
+                <span>{item.q}</span>
+              </dt>
+              <dd className="daily-faq-answer">{item.a}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );

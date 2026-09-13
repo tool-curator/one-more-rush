@@ -111,7 +111,7 @@ export function Footer({ onPlayGame, onNavClick }) {
 
           {/* About & Legal Column */}
           <div className="footer-links-col">
-            <h4 className="footer-col-title font-mono">INFO & SUPPORT</h4>
+            <h4 className="footer-col-title font-mono">INFO &amp; SUPPORT</h4>
             <ul className="footer-links-list">
               <li>
                 <a
@@ -134,9 +134,22 @@ export function Footer({ onPlayGame, onNavClick }) {
                     e.preventDefault();
                     onNavClick && onNavClick('support');
                   }}
-                  title="Support & Frequently Asked Questions"
+                  title="Support &amp; Frequently Asked Questions"
                 >
-                  Support & FAQ
+                  Support &amp; FAQ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  className="footer-link-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavClick && onNavClick('contact');
+                  }}
+                  title="Contact One More Rush"
+                >
+                  Contact Us
                 </a>
               </li>
               <li>
@@ -150,6 +163,19 @@ export function Footer({ onPlayGame, onNavClick }) {
                   title="Privacy Policy"
                 >
                   Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/cookies"
+                  className="footer-link-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavClick && onNavClick('cookies');
+                  }}
+                  title="Cookie Policy"
+                >
+                  Cookie Policy
                 </a>
               </li>
               <li>

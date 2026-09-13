@@ -300,6 +300,110 @@
   line-height: 1.45;
 }
 
+.section-header-row {
+  margin-bottom: 1.5rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.how-subtitle {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+}
+
+.daily-guide-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.guide-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-locker-link {
+  background: rgba(255, 183, 3, 0.1);
+  border: 1px solid rgba(255, 183, 3, 0.35);
+  color: var(--accent-gold);
+}
+
+.btn-locker-link:hover {
+  background: var(--accent-gold);
+  color: #000;
+}
+
+.btn-leaderboard-link {
+  background: rgba(0, 242, 254, 0.1);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  color: var(--accent-secondary);
+}
+
+.btn-leaderboard-link:hover {
+  background: var(--accent-secondary);
+  color: #000;
+}
+
+/* Daily FAQ Section */
+.daily-faq-section {
+  padding: 2.25rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 22, 0.95);
+  margin-top: 2rem;
+}
+
+.daily-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.daily-faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.daily-faq-question {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.daily-faq-answer {
+  margin-left: 28px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 @media (max-width: 900px) {
   .daily-page-dual-grid {
     grid-template-columns: 1fr;
@@ -307,7 +411,13 @@
 }
 
 @media (max-width: 768px) {
-  .how-it-works-section {
+  .how-it-works-section,
+  .daily-faq-section {
     padding: 1.5rem 1.25rem;
+  }
+
+  .daily-faq-answer {
+    margin-left: 0;
+    margin-top: 0.4rem;
   }
 }

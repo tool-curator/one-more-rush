@@ -1129,3 +1129,159 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Leaderboard Rules & Verification Guide */
+.lb-guide-section {
+  padding: 2.25rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  background: rgba(14, 14, 22, 0.95);
+  margin-top: 3rem;
+}
+
+.lb-guide-intro {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.lb-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.lb-rule-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.4rem;
+}
+
+.rule-step-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent-secondary);
+  background: rgba(0, 242, 254, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+
+.rule-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.rule-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.lb-guide-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lb-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.lb-link-btn.btn-daily {
+  background: rgba(255, 53, 98, 0.1);
+  border: 1px solid rgba(255, 53, 98, 0.35);
+  color: var(--accent-primary);
+}
+
+.lb-link-btn.btn-daily:hover {
+  background: var(--accent-primary);
+  color: #fff;
+}
+
+.lb-link-btn.btn-locker {
+  background: rgba(255, 183, 3, 0.1);
+  border: 1px solid rgba(255, 183, 3, 0.35);
+  color: var(--accent-gold);
+}
+
+.lb-link-btn.btn-locker:hover {
+  background: var(--accent-gold);
+  color: #000;
+}
+
+/* Leaderboard FAQ Section */
+.lb-faq-section {
+  padding: 2.25rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 22, 0.95);
+  margin-top: 2rem;
+}
+
+.lb-faq-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.lb-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lb-faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+}
+
+.lb-faq-question {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.45rem;
+}
+
+.lb-faq-answer {
+  margin-left: 28px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .lb-guide-section,
+  .lb-faq-section {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .lb-faq-answer {
+    margin-left: 0;
+    margin-top: 0.4rem;
+  }
+}

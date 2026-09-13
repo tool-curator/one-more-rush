@@ -15,7 +15,9 @@ import {
   Award,
   Play,
   Eye,
+  HelpCircle,
 } from 'lucide-react';
+import { PLATFORM_CONTENT } from '../config/platformContent.js';
 import {
   FRAMES_INVENTORY,
   TITLES_INVENTORY,
@@ -622,6 +624,71 @@ export function LockerPage({
           </div>
         </div>
       )}
+
+      {/* ── 5. VIRTUAL ECONOMY & TRANSPARENCY GUIDE ─────────────────────── */}
+      <div className="locker-guide-section glass-panel">
+        <div className="section-title-row font-mono">
+          <span className="section-icon">💎</span>
+          <h2 className="section-title font-heading">RUSH POINTS &amp; VIRTUAL ECONOMY</h2>
+        </div>
+
+        <p className="locker-guide-intro font-body">
+          {PLATFORM_CONTENT.locker.economyDisclosure}
+        </p>
+
+        <div className="locker-categories-grid">
+          {PLATFORM_CONTENT.locker.categories.map((cat, idx) => (
+            <div key={idx} className="locker-cat-card">
+              <div className="cat-card-header">
+                <span className="cat-icon">{cat.icon}</span>
+                <h3 className="cat-name font-heading">{cat.name}</h3>
+              </div>
+              <p className="cat-desc">{cat.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="locker-guide-links font-mono">
+          <a
+            href="/daily"
+            className="guide-btn btn-daily"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigateToDaily) onNavigateToDaily();
+            }}
+          >
+            <span>EARN POINTS IN DAILY CHALLENGE</span>
+            <ArrowRight size={14} />
+          </a>
+          <a href="/leaderboard" className="guide-btn btn-leaderboard">
+            <span>VIEW LEADERBOARD IDENTITIES</span>
+            <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* ── 6. RUSH LOCKER FAQ ────────────────────────────────────────── */}
+      <div className="locker-faq-section glass-panel">
+        <div className="section-title-row font-mono">
+          <span className="section-icon">❓</span>
+          <h2 className="section-title font-heading">RUSH LOCKER FAQ</h2>
+        </div>
+        <p className="locker-faq-subtitle font-body">
+          Frequently asked questions regarding vanity cosmetics, Rush Point earning, and cloud account synchronization.
+        </p>
+
+        <dl className="locker-faq-list">
+          {PLATFORM_CONTENT.locker.faq.map((item, idx) => (
+            <div key={idx} className="locker-faq-item">
+              <dt className="locker-faq-question font-heading">
+                <HelpCircle size={18} className="text-gold" aria-hidden="true" />
+                <span>{item.q}</span>
+              </dt>
+              <dd className="locker-faq-answer">{item.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
   );
 }

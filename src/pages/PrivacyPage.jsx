@@ -122,16 +122,30 @@ export function PrivacyPage() {
           </p>
         </section>
 
-        {/* Section 6: Cookies, Tracking & Third Parties */}
+        {/* Section 6: Cookies, Advertising & Third-Party Services */}
         <section>
           <h2 className="font-heading">
-            <Lock size={20} className="icon-cyan" /> 6. COOKIES & TRACKING
+            <Lock size={20} className="icon-cyan" /> 6. COOKIES, ADVERTISING &amp; THIRD-PARTY SERVICES
           </h2>
           <p>
-            ONE MORE RUSH does not utilize third-party tracking pixels, behavioral advertising networks, or commercial analytics beacons. Standard authentication tokens (JWTs) are stored in client session storage to maintain your active login session.
+            ONE MORE RUSH uses standard web cookies, local storage, and third-party technologies to deliver responsive games, maintain authentication, measure performance, and support the platform with advertising:
           </p>
+          <ul>
+            <li>
+              <strong>Google AdSense:</strong> We display advertisements served by Google AdSense. Google, as a third-party vendor, uses cookies to serve ads based on your prior visits to this website or other websites across the Internet. Google&apos;s use of advertising cookies enables it and its partners to serve ads based on your visit to ONE MORE RUSH and other sites. You may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" style={{ color: '#00f2fe', textDecoration: 'underline' }}>Google Ads Settings</a> or <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" style={{ color: '#00f2fe', textDecoration: 'underline' }}>aboutads.info</a>.
+            </li>
+            <li>
+              <strong>Google Analytics (GA4):</strong> We use Google Analytics (measurement ID <code>G-DKDJXH0ZQF</code>) to collect anonymous, aggregated technical metrics (such as page visits, device types, and performance data) to monitor platform stability and improve gameplay performance. Google Analytics uses cookies (such as <code>_ga</code>). You can opt out using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" style={{ color: '#00f2fe', textDecoration: 'underline' }}>Google Analytics Opt-out Add-on</a>.
+            </li>
+            <li>
+              <strong>Authentication &amp; Session Tokens:</strong> For registered players, encrypted authentication tokens (JWTs) are stored in client storage via Supabase to maintain your secure login state across sessions.
+            </li>
+            <li>
+              <strong>Server Logs:</strong> Standard technical server logs (such as IP addresses, browser user agent strings, and request timestamps) are generated automatically by web hosting infrastructure for performance monitoring, bot protection, and security mitigation.
+            </li>
+          </ul>
           <p>
-            Standard technical server logs (such as IP addresses, browser user agent strings, and request timestamps) are generated automatically by web hosting infrastructure for performance monitoring and DDoS mitigation.
+            For a comprehensive breakdown of each storage mechanism and cookie used on the platform, please review our dedicated <a href="/cookies" style={{ color: '#00f2fe', textDecoration: 'underline' }}>Cookie Policy</a>.
           </p>
         </section>
 
